@@ -52,6 +52,8 @@ function removeContact(contactId) {
   });
 }
 
+// TODO: generating unique IDs for new entries!
+
 let lastContactId = 0;
 
 function addContact(name, email, phone) {
@@ -61,7 +63,7 @@ function addContact(name, email, phone) {
       return;
     }
     const contacts = JSON.parse(data);
-    lastContactId++; // Increment the last contact ID
+    lastContactId++; // ! Increment the last contact ID
     const newContact = { id: lastContactId, name, email, phone };
     const updatedContacts = [...contacts, newContact];
     fs.writeFile(
