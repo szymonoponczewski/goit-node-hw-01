@@ -18,5 +18,8 @@
   "homepage": "https://github.com/szymonoponczewski/goit-node-hw-01#readme",
   "devDependencies": {
     "nodemon": "^3.0.1"
+  },
+  "dependencies": {
+    "commander": "^11.0.0"
   }
 }

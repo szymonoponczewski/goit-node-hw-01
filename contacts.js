@@ -21,7 +21,7 @@ function getContactById(contactId) {
       return;
     }
     const contacts = JSON.parse(data);
-    const contact = contacts.find((c) => c.id === contactId);
+    const contact = contacts.find((entry) => entry.id === contactId);
     if (contact) {
       console.log("Contact found:", contact);
     } else {
