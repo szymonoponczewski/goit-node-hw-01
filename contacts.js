@@ -1,5 +1,6 @@
 const fs = require("fs");
 const path = require("path");
+const { uniqueId } = require("lodash");
 const contactsPath = path.join(__dirname, "db", "contacts.json");
 
 function listContacts() {
@@ -54,8 +55,6 @@ function removeContact(contactId) {
 
 // TODO: generating unique IDs for new entries!
 
-let lastContactId = 0;
-
 function addContact(name, email, phone) {
   fs.readFile(contactsPath, "utf8", (err, data) => {
     if (err) {
@@ -63,8 +62,7 @@ function addContact(name, email, phone) {
       return;
     }
     const contacts = JSON.parse(data);
-    lastContactId++; // ! Increment the last contact ID
-    const newContact = { id: lastContactId, name, email, phone };
+    const newContact = { id: uniqueId(), name, email, phone };
     const updatedContacts = [...contacts, newContact];
     fs.writeFile(
       contactsPath,
