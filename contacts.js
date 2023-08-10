@@ -1,6 +1,5 @@
 const fs = require("fs");
 const path = require("path");
-const { uniqueId } = require("lodash");
 const contactsPath = path.join(__dirname, "db", "contacts.json");
 
 function listContacts() {
