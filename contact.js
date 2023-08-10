@@ -15,28 +15,67 @@ function listContacts() {
 }
 
 function getContactById(contactId) {
-  fs.readFile(contactsPath, 'utf8', (err, data) => {
+  fs.readFile(contactsPath, "utf8", (err, data) => {
     if (err) {
-      console.error('Error reading contacts:', err);
+      console.error("Error reading contacts:", err);
       return;
     }
     const contacts = JSON.parse(data);
     const contact = contacts.find((c) => c.id === contactId);
     if (contact) {
-      console.log('Contact found:', contact);
+      console.log("Contact found:", contact);
     } else {
-      console.log('Contact not found.');
+      console.log("Contact not found.");
     }
   });
 }
 
-  function removeContact(contactId) {
-    // Your code to remove contact
-  }
+function removeContact(contactId) {
+  fs.readFile(contactsPath, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error reading contacts:", err);
+      return;
+    }
+    const contacts = JSON.parse(data);
+    const updatedContacts = contacts.filter((entry) => entry.id !== contactId);
+    fs.writeFile(
+      contactsPath,
+      JSON.stringify(updatedContacts, null, 2),
+      (err) => {
+        if (err) {
+          console.error("Error removing contact:", err);
+          return;
+        }
+        console.log("Contact removed successfully.");
+      }
+    );
+  });
+}
 
-  function addContact(name, email, phone) {
-    // Your code to add contact
-  }
+let lastContactId = 0;
 
-  module.exports = { listContacts, getContactById, removeContact, addContact };
+function addContact(name, email, phone) {
+  fs.readFile(contactsPath, "utf8", (err, data) => {
+    if (err) {
+      console.error("Error reading contacts:", err);
+      return;
+    }
+    const contacts = JSON.parse(data);
+    lastContactId++; // Increment the last contact ID
+    const newContact = { id: lastContactId, name, email, phone };
+    const updatedContacts = [...contacts, newContact];
+    fs.writeFile(
+      contactsPath,
+      JSON.stringify(updatedContacts, null, 2),
+      (err) => {
+        if (err) {
+          console.error("Error adding contact:", err);
+          return;
+        }
+        console.log("Contact added successfully.");
+      }
+    );
+  });
+}
 
+module.exports = { listContacts, getContactById, removeContact, addContact };
