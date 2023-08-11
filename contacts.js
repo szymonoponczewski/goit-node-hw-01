@@ -55,8 +55,6 @@ function removeContact(contactId) {
   });
 }
 
-// TODO: generating unique IDs for new entries!
-
 function addContact(name, email, phone) {
   fs.readFile(contactsPath, "utf8", (err, data) => {
     if (err) {
